@@ -15,3 +15,6 @@ Trying to learn ReactJS with a real life project called BDoffers, an offer listi
 - Brand Page
   - Address of Brand Outlets
   - Past Offers
+
+Build Using `npm run build`
+Start A dev server and watch `npm run watch`

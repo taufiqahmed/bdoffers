@@ -1,0 +1,5 @@
+# for nodejs
+dist
+node_modules
+bower_components
+.idea
