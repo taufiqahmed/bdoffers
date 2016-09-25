@@ -5,16 +5,23 @@ Trying to learn ReactJS with a real life project called BDoffers, an offer listi
 ##Features:
 
 - Show a list of Offers by
+  - Offer Image
+  - Brand Name
+  - Discount
+  - Expiry Date
+- Single Page for Showing details of the offer including
+  - Offer Image  
   - Brand Name
   - Discount
   - Title
+  - Offer Details
   - Expiry Date
-- Single Page for Showing details of the offer including
-  - Brand Outlets
-  - Brand Contact Info
 - Brand Page
-  - Address of Brand Outlets
+  - Address of Brand Outlets and Contact Info
   - Past Offers
+- Add New Offer
+  - Validation
+  - Brand Name Autocomplete
 
 Build Using `npm run build`
 Start A dev server and watch `npm run watch`
