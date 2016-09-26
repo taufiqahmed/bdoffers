@@ -4,6 +4,9 @@ var Link = require('react-router').Link;
 
 var AppHeader = require('./app-header.jsx');
 
+// Working with
+// Validation
+
 // TO-DO
 // 1. Validation
 // 2. Submission Status notification
@@ -75,40 +78,45 @@ var AddOfferForm = React.createClass({
     
     // Validation
     if (this.state.title == undefined || this.state.title == "") {
-      $(titleInput).parent().addClass('has-error');
-      $(titleInput).next().text("Offer Title shouldn't be empty");
+      $(titleInput).closest('.form-group').addClass('has-error');
+      $(titleInput).closest('.help-block').text("Offer Title shouldn't be empty");
       $(titleInput).focus();
       return
     }
     if (this.state.brand == "" || this.state.brand == undefined) {
-      $(brandInput).parent().addClass('has-error');
+      $(brandInput).closest('.form-group').addClass('has-error');
       $(brandInput).next().text("Brand shouldnt be empty");
       $(brandInput).focus();
       return
     }
     if (this.state.discount == undefined || this.state.discount == "") {
-      $(discountInput).parent().addClass('has-error');
-      $(discountInput).next().text("Discount shouldn't be empty");
+      $(discountInput).closest('.form-group').addClass('has-error');
+      $(discountInput).closest('.help-block').text("Discount shouldn't be empty");
       $(discountInput).focus();
       return
     }
     if (this.state.startDate == undefined || this.state.startDate == "") {
-      $(startDateInput).parent().addClass('has-error');
-      $(startDateInput).next().text("Start Date shouldn't be empty");
+      $(startDateInput).closest('.form-group').addClass('has-error');
+      $(startDateInput).closest('.help-block').text("Start Date shouldn't be empty");
       $(startDateInput).focus();
       return
     }
     if (this.state.endDate == undefined || this.state.endDate == "") {
-      $(endDateInput).parent().addClass('has-error');
-      $(endDateInput).next().text("End Date shouldn't be empty");
+      $(endDateInput).closest('.form-group').addClass('has-error');
+      $(endDateInput).closest('.help-block').text("End Date shouldn't be empty");
       $(endDateInput).focus();
       return
     }
+
+    this._saveOffer(formData);
+
   },
   
   // Handling Submit Event
   _handleSubmit: function (e) {
+    
     e.preventDefault();
+    
     var formData = {
       "title" : this.state.title,
       "brand" : this.state.brand,
@@ -117,12 +125,14 @@ var AddOfferForm = React.createClass({
       "endDate" : this.state.endDate,
     }
 
-    this._saveOffer(formData);
-    
+    this._handleValidation();
+
   },
+  
   _resetForm: function () {
     $('#offer-form')[0].reset();
   },
+  
   render() {
     return (
       <div>
@@ -131,7 +141,7 @@ var AddOfferForm = React.createClass({
           <div className="col-md-12">
             {
               (() => {
-                if (this.state.submitSuccess == true){
+                if (this.state.submitSuccess){
                   return (<p className="alert alert-success">Submission Successful</p>)
                 } else if (this.state.submitSuccess == false) {
                   return (<p className="alert alert-danger">Submission Failed</p>)
