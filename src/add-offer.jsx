@@ -79,31 +79,31 @@ var AddOfferForm = React.createClass({
     // Validation
     if (this.state.title == undefined || this.state.title == "") {
       $(titleInput).closest('.form-group').addClass('has-error');
-      $(titleInput).closest('.help-block').text("Offer Title shouldn't be empty");
+      $(titleInput).next('.help-block').text("Offer Title shouldn't be empty");
       $(titleInput).focus();
       return
     }
     if (this.state.brand == "" || this.state.brand == undefined) {
       $(brandInput).closest('.form-group').addClass('has-error');
-      $(brandInput).next().text("Brand shouldnt be empty");
+      $(brandInput).next('.help-block').text("Brand shouldnt be empty");
       $(brandInput).focus();
       return
     }
     if (this.state.discount == undefined || this.state.discount == "") {
       $(discountInput).closest('.form-group').addClass('has-error');
-      $(discountInput).closest('.help-block').text("Discount shouldn't be empty");
+      $(discountInput).next('.help-block').text("Discount shouldn't be empty");
       $(discountInput).focus();
       return
     }
     if (this.state.startDate == undefined || this.state.startDate == "") {
       $(startDateInput).closest('.form-group').addClass('has-error');
-      $(startDateInput).closest('.help-block').text("Start Date shouldn't be empty");
+      $(startDateInput).next('.help-block').text("Start Date shouldn't be empty");
       $(startDateInput).focus();
       return
     }
     if (this.state.endDate == undefined || this.state.endDate == "") {
       $(endDateInput).closest('.form-group').addClass('has-error');
-      $(endDateInput).closest('.help-block').text("End Date shouldn't be empty");
+      $(endDateInput).next('.help-block').text("End Date shouldn't be empty");
       $(endDateInput).focus();
       return
     }
