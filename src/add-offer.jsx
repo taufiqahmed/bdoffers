@@ -12,6 +12,7 @@ var AppHeader = require('./app-header.jsx');
 // 2. Submission Status notification
 // 3. Auto Complete in Brand input
 // 4. Week Month dropdown for easy date picking
+// 5. Real Time validation
 
 
 
@@ -51,24 +52,48 @@ var AddOfferForm = React.createClass({
   },
 
   // Value Reflect
-  _onTitleChange: function (e){
-    this.setState({title: e.target.value});
+  _onInputChange: function(e){
+    var input = e.target;
+    switch (input.name) {
+      case 'title':
+        this.setState({title: input.value});
+        break
+      case 'brand':
+        this.setState({brand: input.value});
+        break
+      case 'discount':
+        this.setState({discount: input.value});
+        break
+      case 'startdate':
+        this.setState({startDate: input.value});
+        break
+      case 'enddate':
+        this.setState({endDate: input.value});
+        break
+      default:
+        console.log('No name matched');
+    }
+    
+    this._checkValidity(input);
   },
-  _onBrandChange: function (e){
-    this.setState({brand: e.target.value});
-  },
-  _onDiscountChange: function (e){
-    this.setState({discount: e.target.value});
-  },
-  _onStartChange: function (e){
-    this.setState({startDate: e.target.value});
-  },
-  _onEndChange: function (e){
-    this.setState({endDate: e.target.value});
+  
+  // check validity on change and unfocused
+  _checkValidity: function(input){
+    if (!input.value) {
+      $(input).closest('.form-group').addClass('has-error');
+      $(input).next('.help-block').text(input.name+ " shouldn't be empty");
+      $(input).focus();
+      return
+    } else {
+      $(input).closest('.form-group').removeClass('has-error');
+      $(input).next('.help-block').text("");
+    }
   },
   
   // Validation
   _handleValidation: function () {
+    
+    
     var form = $("#offer-form");
     var titleInput = $("[name='title']", form);
     var brandInput = $("[name='brand']", form);
@@ -82,32 +107,60 @@ var AddOfferForm = React.createClass({
       $(titleInput).next('.help-block').text("Offer Title shouldn't be empty");
       $(titleInput).focus();
       return
+    } else {
+      $(titleInput).closest('.form-group').removeClass('has-error');
+      $(titleInput).next('.help-block').text("");
     }
+
     if (this.state.brand == "" || this.state.brand == undefined) {
       $(brandInput).closest('.form-group').addClass('has-error');
       $(brandInput).next('.help-block').text("Brand shouldnt be empty");
       $(brandInput).focus();
       return
+    } else {
+      $(brandInput).closest('.form-group').removeClass('has-error');
+      $(brandInput).next('.help-block').text("");
     }
+
+
     if (this.state.discount == undefined || this.state.discount == "") {
       $(discountInput).closest('.form-group').addClass('has-error');
       $(discountInput).next('.help-block').text("Discount shouldn't be empty");
       $(discountInput).focus();
       return
+    } else {
+      $(discountInput).closest('.form-group').removeClass('has-error');
+      $(discountInput).next('.help-block').text("");
     }
+
     if (this.state.startDate == undefined || this.state.startDate == "") {
       $(startDateInput).closest('.form-group').addClass('has-error');
       $(startDateInput).next('.help-block').text("Start Date shouldn't be empty");
       $(startDateInput).focus();
       return
+    } else {
+      $(startDateInput).closest('.form-group').removeClass('has-error');
+      $(startDateInput).next('.help-block').text("");
     }
+
     if (this.state.endDate == undefined || this.state.endDate == "") {
       $(endDateInput).closest('.form-group').addClass('has-error');
       $(endDateInput).next('.help-block').text("End Date shouldn't be empty");
       $(endDateInput).focus();
       return
+    } else {
+      $(endDateInput).closest('.form-group').removeClass('has-error');
+      $(endDateInput).next('.help-block').text("");
     }
 
+    var formData = {
+      "title" : this.state.title,
+      "brand" : this.state.brand,
+      "discount" : this.state.discount,
+      "startDate" : this.state.startDate,
+      "endDate" : this.state.endDate,
+    }
+    
     this._saveOffer(formData);
 
   },
@@ -116,14 +169,6 @@ var AddOfferForm = React.createClass({
   _handleSubmit: function (e) {
     
     e.preventDefault();
-    
-    var formData = {
-      "title" : this.state.title,
-      "brand" : this.state.brand,
-      "discount" : this.state.discount,
-      "startDate" : this.state.startDate,
-      "endDate" : this.state.endDate,
-    }
 
     this._handleValidation();
 
@@ -157,27 +202,27 @@ var AddOfferForm = React.createClass({
             <div className="page-header"><h2>Add New Offer</h2></div>
             <div className="form-group">
               <label htmlFor="">Offer Title</label>
-              <input type="text" ref="title" name="title" className="form-control input-lg" value={this.state.title} onChange={this._onTitleChange}/>
+              <input type="text" name="title" tab-index="1" className="form-control input-lg" value={this.state.title} onChange={this._onInputChange} onBlur={this._onInputChange}/>
               <span className="help-block"></span>
             </div>
             <div className="form-group">
               <label htmlFor="">Brand</label>
-              <input type="text" ref="brand" name="brand" className="form-control input-lg" value={this.state.brand} onChange={this._onBrandChange}/>
+              <input type="text"name="brand" tab-index="2" className="form-control input-lg" value={this.state.brand} onChange={this._onInputChange} onBlur={this._onInputChange}/>
               <span className="help-block"></span>
             </div>
             <div className="form-group">
               <label htmlFor="">Discount</label>
-              <input type="number" min="5" max="100" ref="discount" name="discount" className="form-control input-lg" value={this.state.discount} onChange={this._onDiscountChange}/>
+              <input type="number" min="5" max="100" tab-index="3" name="discount" className="form-control input-lg" value={this.state.discount} onChange={this._onInputChange} onBlur={this._onInputChange}/>
               <span className="help-block"></span>
             </div>
             <div className="form-group">
               <label htmlFor="">Start Time</label>
-              <input type="date" ref="startDate" name="startdate" className="form-control input-lg" value={this.state.startDate} onChange={this._onStartChange}/>
+              <input type="date" tab-index="4" name="startdate" className="form-control input-lg" value={this.state.startDate} onChange={this._onInputChange} onBlur={this._onInputChange}/>
               <span className="help-block"></span>
             </div>
             <div className="form-group">
               <label htmlFor="">End Time</label>
-              <input type="date" ref="endDate" name="enddate" className="form-control input-lg" value={this.state.endDate} onChange={this._onEndChange}/>
+              <input type="date" tab-index="5" name="enddate" className="form-control input-lg" value={this.state.endDate} onChange={this._onInputChange} onBlur={this._onInputChange}/>
               <span className="help-block"></span>
             </div>
             <div className="form-group">
