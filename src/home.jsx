@@ -2,6 +2,8 @@ var React = require('react');
 var Link = require('react-router').Link;
 var $ = require('jquery');
 
+var placeholderImage = require('../img/300.png');
+
 
 // A container for all offers
 var OfferBox = React.createClass({
@@ -17,8 +19,8 @@ var OfferBox = React.createClass({
         this.setState({data: data});
       }.bind(this),
       error: function(xhr, status, err) {
-        console.error(url, status, err.toString());
-      }.bind(this)
+        console.error(status, err.toString());
+      }
     });
   },
   render: function(){
@@ -62,7 +64,7 @@ var OfferItem = React.createClass({
     return (
       <div className="offer col-md-3">
         <div className="thumbnail">
-          <img src="./img/300.png" />
+          <img src={placeholderImage} alt="Offer"/>
           <div className="caption">
             <h2>{this.props.discount}%</h2>
             <h4 className="text-danger">{this.props.brand}</h4>

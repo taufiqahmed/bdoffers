@@ -15,8 +15,8 @@ var OfferDetail = React.createClass ({
         this.setState({data: data});
       }.bind(this),
       error: function(xhr, status, err) {
-        console.error(url, status, err.toString());
-      }.bind(this)
+        console.error(status, err.toString());
+      }
     });
   },
   render: function() {
@@ -25,7 +25,7 @@ var OfferDetail = React.createClass ({
         <AppHeader></AppHeader>
         <div className="row">
           <div className="col-md-4">
-            <img src={this.state.data.url} className="img-thumbnail"/>
+            <img src={this.state.data.url} className="img-thumbnail" alt="offer"/>
             <h1>{this.state.data.brand}</h1>
             <h3>{this.state.data.discount}%</h3>
             <p>{this.state.data.description}</p>

@@ -122,11 +122,8 @@ var AddOfferForm = React.createClass({
   
   // Handling Submit Event
   _handleSubmit: function (e) {
-    
     e.preventDefault();
-
     this._handleValidation();
-
   },
   
   _resetForm: function () {
@@ -143,7 +140,7 @@ var AddOfferForm = React.createClass({
               (() => {
                 if (this.state.submitSuccess){
                   return (<p className="alert alert-success">Submission Successful</p>)
-                } else if (this.state.submitSuccess == false) {
+                } else if (this.state.submitSuccess === false) {
                   return (<p className="alert alert-danger">Submission Failed</p>)
                 } else {
                   return (<div></div>)
@@ -157,27 +154,27 @@ var AddOfferForm = React.createClass({
             <div className="page-header"><h2>Add New Offer</h2></div>
             <div className="form-group">
               <label htmlFor="">Offer Title</label>
-              <input type="text" name="title" tab-index="1" className="form-control input-lg" value={this.state.title} onChange={this._onInputChange} onBlur={this._onInputChange}/>
+              <input type="text" name="title" tabIndex="1" className="form-control input-lg" value={this.state.title} onChange={this._onInputChange} onBlur={this._onInputChange}/>
               <span className="help-block"></span>
             </div>
             <div className="form-group">
               <label htmlFor="">Brand</label>
-              <input type="text"name="brand" tab-index="2" className="form-control input-lg" value={this.state.brand} onChange={this._onInputChange} onBlur={this._onInputChange}/>
+              <input type="text"name="brand" tabIndex="2" className="form-control input-lg" value={this.state.brand} onChange={this._onInputChange} onBlur={this._onInputChange}/>
               <span className="help-block"></span>
             </div>
             <div className="form-group">
               <label htmlFor="">Discount</label>
-              <input type="number" min="5" max="100" tab-index="3" name="discount" className="form-control input-lg" value={this.state.discount} onChange={this._onInputChange} onBlur={this._onInputChange}/>
+              <input type="number" min="5" max="100" tabIndex="3" name="discount" className="form-control input-lg" value={this.state.discount} onChange={this._onInputChange} onBlur={this._onInputChange}/>
               <span className="help-block"></span>
             </div>
             <div className="form-group">
               <label htmlFor="">Start Time</label>
-              <input type="date" tab-index="4" name="startdate" className="form-control input-lg" value={this.state.startDate} onChange={this._onInputChange} onBlur={this._onInputChange}/>
+              <input type="date" tabIndex="4" name="startdate" className="form-control input-lg" value={this.state.startDate} onChange={this._onInputChange} onBlur={this._onInputChange}/>
               <span className="help-block"></span>
             </div>
             <div className="form-group">
               <label htmlFor="">End Time</label>
-              <input type="date" tab-index="5" name="enddate" className="form-control input-lg" value={this.state.endDate} onChange={this._onInputChange} onBlur={this._onInputChange}/>
+              <input type="date" tabIndex="5" name="enddate" className="form-control input-lg" value={this.state.endDate} onChange={this._onInputChange} onBlur={this._onInputChange}/>
               <span className="help-block"></span>
             </div>
             <div className="form-group">

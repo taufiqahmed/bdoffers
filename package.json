@@ -1,45 +1,21 @@
 {
   "name": "bdoffers-react",
-  "version": "0.0.1",
-  "description": "bdoffers website made using ReactJs",
-  "main": "index.html",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "browserify -t babelify -g uglifyify src/app.js -o bundle.js",
-    "watch": "budo src/app.js:bundle.js --live -- -t babelify"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/taufiqahmed/bdoffers-react.git"
-  },
-  "keywords": [
-    "bdoffers",
-    "reactjs"
-  ],
-  "author": "Taufiq Ahmed",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/taufiqahmed/bdoffers-react/issues"
-  },
-  "homepage": "https://github.com/taufiqahmed/bdoffers-react#readme",
-  "dependencies": {
-    "bootstrap": "^3.3.6",
-    "jquery": "^3.0.0",
-    "react": "^15.0.2",
-    "react-dom": "^15.0.2",
-    "react-router": "^2.7.0"
-  },
+  "version": "0.1.0",
+  "private": true,
   "devDependencies": {
-    "babel-preset-react": "^6.5.0",
-    "babelify": "^7.3.0",
-    "beefy": "^2.1.6",
-    "browserify": "^13.0.1",
-    "budo": "^9.2.0",
-    "uglifyify": "^3.0.1"
+    "react-scripts": "0.6.0"
   },
-  "babel": {
-    "presets": [
-      "react"
-    ]
+  "dependencies": {
+    "jquery": "^3.1.1",
+    "react": "^15.3.2",
+    "react-bootstrap": "^0.30.3",
+    "react-dom": "^15.3.2",
+    "react-router": "^2.8.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
   }
 }
