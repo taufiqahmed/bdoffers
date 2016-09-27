@@ -1,6 +1,5 @@
 var React = require('react');
 var $ = require('jquery');
-var AppHeader = require('./app-header.jsx');
 
 var OfferDetail = React.createClass ({
   getInitialState: function(){
@@ -22,7 +21,6 @@ var OfferDetail = React.createClass ({
   render: function() {
     return (
       <div>
-        <AppHeader></AppHeader>
         <div className="row">
           <div className="col-md-4">
             <img src={this.state.data.url} className="img-thumbnail" alt="offer"/>
@@ -32,7 +30,6 @@ var OfferDetail = React.createClass ({
           </div>
         </div>
       </div>
-      
     );
   }
 });

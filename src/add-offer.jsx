@@ -2,7 +2,6 @@ var React = require('react');
 var $ = require('jquery');
 var Link = require('react-router').Link;
 
-var AppHeader = require('./app-header.jsx');
 
 // Working with
 // new work
@@ -133,7 +132,6 @@ var AddOfferForm = React.createClass({
   render() {
     return (
       <div>
-        <AppHeader></AppHeader>
         <div className="row">
           <div className="col-md-12">
             {
