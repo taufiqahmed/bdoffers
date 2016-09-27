@@ -5,7 +5,7 @@ var Link = require('react-router').Link;
 var AppHeader = require('./app-header.jsx');
 
 // Working with
-// Validation
+// Validation, trying to reduce code of validity check on every element
 
 // TO-DO
 // 1. Validation
@@ -92,77 +92,30 @@ var AddOfferForm = React.createClass({
   
   // Validation
   _handleValidation: function () {
+    // return HtmlCollection
+    var offerFormInputs = document.offerForm.getElementsByTagName('input');
+    // Converting Collection to Array
+    var offerFormInputsArray = [].slice.call(offerFormInputs);
     
+    offerFormInputsArray.forEach(function(input, index){
+      this._checkValidity(input);
+    }, this);
     
-    var form = $("#offer-form");
-    var titleInput = $("[name='title']", form);
-    var brandInput = $("[name='brand']", form);
-    var discountInput = $("[name='discount']", form);
-    var startDateInput = $("[name='startDate']", form);
-    var endDateInput = $("[name='endDate']", form);
-    
-    // Validation
-    if (this.state.title == undefined || this.state.title == "") {
-      $(titleInput).closest('.form-group').addClass('has-error');
-      $(titleInput).next('.help-block').text("Offer Title shouldn't be empty");
-      $(titleInput).focus();
-      return
-    } else {
-      $(titleInput).closest('.form-group').removeClass('has-error');
-      $(titleInput).next('.help-block').text("");
-    }
+    var formValid = offerFormInputsArray.every(function (input) {
+      return input.value;
+    });
 
-    if (this.state.brand == "" || this.state.brand == undefined) {
-      $(brandInput).closest('.form-group').addClass('has-error');
-      $(brandInput).next('.help-block').text("Brand shouldnt be empty");
-      $(brandInput).focus();
-      return
-    } else {
-      $(brandInput).closest('.form-group').removeClass('has-error');
-      $(brandInput).next('.help-block').text("");
-    }
-
-
-    if (this.state.discount == undefined || this.state.discount == "") {
-      $(discountInput).closest('.form-group').addClass('has-error');
-      $(discountInput).next('.help-block').text("Discount shouldn't be empty");
-      $(discountInput).focus();
-      return
-    } else {
-      $(discountInput).closest('.form-group').removeClass('has-error');
-      $(discountInput).next('.help-block').text("");
-    }
-
-    if (this.state.startDate == undefined || this.state.startDate == "") {
-      $(startDateInput).closest('.form-group').addClass('has-error');
-      $(startDateInput).next('.help-block').text("Start Date shouldn't be empty");
-      $(startDateInput).focus();
-      return
-    } else {
-      $(startDateInput).closest('.form-group').removeClass('has-error');
-      $(startDateInput).next('.help-block').text("");
-    }
-
-    if (this.state.endDate == undefined || this.state.endDate == "") {
-      $(endDateInput).closest('.form-group').addClass('has-error');
-      $(endDateInput).next('.help-block').text("End Date shouldn't be empty");
-      $(endDateInput).focus();
-      return
-    } else {
-      $(endDateInput).closest('.form-group').removeClass('has-error');
-      $(endDateInput).next('.help-block').text("");
-    }
-
-    var formData = {
+    if (formValid){
+      var formData = {
       "title" : this.state.title,
       "brand" : this.state.brand,
       "discount" : this.state.discount,
       "startDate" : this.state.startDate,
       "endDate" : this.state.endDate,
-    }
-    
-    this._saveOffer(formData);
+      }
 
+      this._saveOffer(formData);
+    }
   },
   
   // Handling Submit Event
@@ -198,7 +151,7 @@ var AddOfferForm = React.createClass({
           </div>
         </div>
         <div className="row">
-          <form className="col-md-6" id="offer-form" name="offer-form" onSubmit={this._handleSubmit}>
+          <form className="col-md-6" id="offer-form" name="offerForm" onSubmit={this._handleSubmit}>
             <div className="page-header"><h2>Add New Offer</h2></div>
             <div className="form-group">
               <label htmlFor="">Offer Title</label>
