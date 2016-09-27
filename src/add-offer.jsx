@@ -5,14 +5,14 @@ var Link = require('react-router').Link;
 var AppHeader = require('./app-header.jsx');
 
 // Working with
-// Validation, trying to reduce code of validity check on every element
+// new work
 
 // TO-DO
-// 1. Validation
+// 1. [ DONE ] Validation
 // 2. Submission Status notification
 // 3. Auto Complete in Brand input
 // 4. Week Month dropdown for easy date picking
-// 5. Real Time validation
+// 5. [Done] Real Time validation
 
 
 
@@ -31,6 +31,8 @@ var AddOfferForm = React.createClass({
     var today = new Date();
     return today.toISOString().substr(0, 10);
   },
+  
+  // Posting Data to API
   _saveOffer: function (data) {
     $.ajax({
       url: this.props.route.url,
@@ -51,7 +53,7 @@ var AddOfferForm = React.createClass({
     })
   },
 
-  // Value Reflect
+  // Binding input value to State
   _onInputChange: function(e){
     var input = e.target;
     switch (input.name) {
