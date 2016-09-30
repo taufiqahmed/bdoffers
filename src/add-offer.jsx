@@ -137,7 +137,7 @@ var AddOfferForm = React.createClass({
                     </div>
                   )
                 } else if (this.state.submitSuccess === false) {
-                  return (<p className="alert alert-danger" onClick={this._dismissAlert}>Submission Failed</p>)
+                  return (<p className="alert alert-danger" onClick={this._dismissAlert}>Submission Failed. Please Try Again.</p>)
                 } else {
                   return (<div></div>)
                 }
