@@ -2,19 +2,6 @@ var React = require('react');
 var $ = require('jquery');
 var Link = require('react-router').Link;
 
-
-// Working with
-// new work
-
-// TO-DO
-// 1. [ DONE ] Validation
-// 2. Submission Status notification
-// 3. Auto Complete in Brand input
-// 4. Week Month dropdown for easy date picking
-// 5. [Done] Real Time validation
-
-
-
 var AddOfferForm = React.createClass({
   getInitialState: function () {
     return ({ 
@@ -78,7 +65,7 @@ var AddOfferForm = React.createClass({
     this._checkValidity(input);
   },
   
-  // check validity on change and unfocused
+  // check validity on change and tab change
   _checkValidity: function(input){
     if (!input.value) {
       $(input).closest('.form-group').addClass('has-error');
@@ -94,28 +81,30 @@ var AddOfferForm = React.createClass({
   // Validation
   _handleValidation: function () {
     // return HtmlCollection
-    var offerFormInputs = document.offerForm.getElementsByTagName('input');
+    var offerFormInput = document.offerForm.getElementsByTagName('input');
     // Converting Collection to Array
-    var offerFormInputsArray = [].slice.call(offerFormInputs);
+    var offerFormInputArray = [].slice.call(offerFormInput);
     
-    offerFormInputsArray.forEach(function(input, index){
+    offerFormInputArray.forEach(function(input, index){
       this._checkValidity(input);
     }, this);
     
-    var formValid = offerFormInputsArray.every(function (input) {
+    // Does every input element has value?
+    var formValid = offerFormInputArray.every(function (input) {
       return input.value;
     });
 
     if (formValid){
-      var formData = {
-      "title" : this.state.title,
-      "brand" : this.state.brand,
-      "discount" : this.state.discount,
-      "startDate" : this.state.startDate,
-      "endDate" : this.state.endDate,
-      }
+      // var formData = {
+      // "title" : this.state.title,
+      // "brand" : this.state.brand,
+      // "discount" : this.state.discount,
+      // "startDate" : this.state.startDate,
+      // "endDate" : this.state.endDate,
+      // }
 
-      this._saveOffer(formData);
+      this.setState({submitSuccess: true});
+      // this._saveOffer(formData);
     }
   },
   
@@ -123,6 +112,10 @@ var AddOfferForm = React.createClass({
   _handleSubmit: function (e) {
     e.preventDefault();
     this._handleValidation();
+  },
+
+  _dismissAlert: function (e) {
+    $(e.target).parent(".alert").fadeOut("medium");
   },
   
   _resetForm: function () {
@@ -133,13 +126,18 @@ var AddOfferForm = React.createClass({
     return (
       <div>
         <div className="row">
-          <div className="col-md-12">
+          <div className="col-md-6 col-md-offset-3">
             {
               (() => {
                 if (this.state.submitSuccess){
-                  return (<p className="alert alert-success">Submission Successful</p>)
+                  return (
+                    <div className="alert alert-success alert-dismissible" role="alert">
+                      <button type="button" className="close" onClick={this._dismissAlert}>&times;</button>
+                      Offer Submitted Successfully.
+                    </div>
+                  )
                 } else if (this.state.submitSuccess === false) {
-                  return (<p className="alert alert-danger">Submission Failed</p>)
+                  return (<p className="alert alert-danger" onClick={this._dismissAlert}>Submission Failed</p>)
                 } else {
                   return (<div></div>)
                 }
@@ -148,7 +146,7 @@ var AddOfferForm = React.createClass({
           </div>
         </div>
         <div className="row">
-          <form className="col-md-6" id="offer-form" name="offerForm" onSubmit={this._handleSubmit}>
+          <form className="col-md-6 col-md-offset-3" id="offer-form" name="offerForm" onSubmit={this._handleSubmit}>
             <div className="page-header"><h2>Add New Offer</h2></div>
             <div className="form-group">
               <label htmlFor="">Offer Title</label>
