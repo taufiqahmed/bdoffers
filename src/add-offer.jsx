@@ -1,6 +1,10 @@
 var React = require('react');
 var $ = require('jquery');
 var Link = require('react-router').Link;
+var Awesomplete = require('../vendor-assets/awesomplete.min.js')
+require('../vendor-assets/awesomplete.css')
+
+
 
 var AddOfferForm = React.createClass({
   getInitialState: function () {
@@ -12,6 +16,62 @@ var AddOfferForm = React.createClass({
       startDate: "",
       endDate: ""
     })
+  },
+  componentDidMount: function(){
+    var brandInput = document.getElementById('brand');
+    var awesomplete = new Awesomplete(brandInput);
+    awesomplete.list = [
+      "Topicshots"
+    , "Wordpedia"
+    , "Photolist"
+    , "Rhyzio"
+    ,  "Aivee"
+    , "Tagcat"
+    , "Tagchat"
+    , "Trudoo"
+    , "Skipstorm"
+    , "Edgewire"
+    , "Topicshots"
+    , "Voomm"
+    , "Vinte"
+    , "Eamia"
+    , "Youtags"
+    , "Zoomcast"
+    , "Zoozzy"
+    , "Skilith"
+    , "Tekfly"
+    , "Zoomcast"
+    , "Oyoloo"
+    , "Meembee"
+    , "Realbridge"
+    , "Quire"
+    , "Wikivu"
+    , "Thoughtworks"
+    , "Gabtune"
+    ,  "Yakijo"
+    , "Kwilith"
+    , "Kimia"
+    , "Zava"
+    , "Eamia"
+    , "Quinu"
+    ,  "Quire"
+    , "Bluejam"
+    , "Rhyzio"
+    , "Feedmix"
+    , "Midel"
+    , "Buzzdog"
+    , "Tagpad"
+    , "Ntags"
+    , "Voolith"
+    , "Abata"
+    ,  "Gevee"
+    , "Bubblemix"
+    , "Dabjam"
+    , "Babbleset"
+    , "Snaptags"
+    , "Jamia"
+    , "Bluejam"
+    ];
   },
   _today: function () {
     var today = new Date();
@@ -123,6 +183,7 @@ var AddOfferForm = React.createClass({
   },
   
   render() {
+    
     return (
       <div>
         <div className="row">
@@ -155,7 +216,7 @@ var AddOfferForm = React.createClass({
             </div>
             <div className="form-group">
               <label htmlFor="">Brand</label>
-              <input type="text"name="brand" tabIndex="2" className="form-control input-lg" value={this.state.brand} onChange={this._onInputChange} onBlur={this._onInputChange}/>
+              <input type="text" name="brand" id="brand" tabIndex="2" className="form-control input-lg" value={this.state.brand} onChange={this._onInputChange} onBlur={this._onInputChange}/>
               <span className="help-block"></span>
             </div>
             <div className="form-group">
