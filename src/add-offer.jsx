@@ -21,7 +21,14 @@ var AddOfferForm = React.createClass({
     var brandInput = document.getElementById('brand');
     var awesomplete = new Awesomplete(brandInput);
     awesomplete.list = [
-      "Topicshots"
+      "Ecstasy"
+    , "Yellow"
+    , "Le Reve"
+    , "Artisti"
+    , "Artisan"
+    , "Infinity"
+    , "Amber"
+    , "Topicshots"
     , "Wordpedia"
     , "Photolist"
     , "Rhyzio"
