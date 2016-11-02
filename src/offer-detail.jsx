@@ -1,6 +1,8 @@
 var React = require('react');
 var $ = require('jquery');
 
+var placeholderImage = require('../img/300.png');
+
 var OfferDetail = React.createClass ({
   getInitialState: function(){
     return {data: []}
@@ -23,7 +25,8 @@ var OfferDetail = React.createClass ({
       <div>
         <div className="row">
           <div className="col-md-4">
-            <img src={this.state.data.url} className="img-thumbnail" alt="offer"/>
+            <img src={placeholderImage} className="img-thumbnail" alt="offer"/>
+            <h3>{this.state.data.title}</h3>
             <h1>{this.state.data.brand}</h1>
             <h3>{this.state.data.discount}%</h3>
             <p>{this.state.data.description}</p>

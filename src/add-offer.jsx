@@ -88,7 +88,7 @@ var AddOfferForm = React.createClass({
   // Posting Data to API
   _saveOffer: function (data) {
     $.ajax({
-      url: this.props.route.url,
+      url: "http://localhost:3004/offers",
       contentType: 'application/json',
       dataType: 'json',
       cache: false,

@@ -35,19 +35,20 @@ var OfferListContainer = React.createClass({
     return (
       <div className="offer-box">
         <div className="row">
-          <div className="col-md-8">
-            <h1>Latest Offers</h1>
+          <div className="col-md-7">
+            <h2 style={{margin: '0', marginBottom: '20px'}}>Latest Offers</h2>
           </div>
-          <div className="col-md-4">
-            <div className="pull-right"><Link to="/add-offer" className="btn btn-primary btn-lg">Add Offer</Link></div>
-            <form className="form-inline">
+          <div className="col-md-5">
+            <div className="pull-right"><Link to="/add-offer" className="btn btn-primary">Add New Offer</Link></div>
+            <form className="form-inline pull-right" style={{marginRight: '10px'}}>
               <div className="form-group">
-                <label>Filter By </label>
+                <label>Filter By &nbsp;</label>
                 <select className="form-control" id="filter" onChange={this._onFilterChange}>
                   <option value="discountHightToLow">Discount Hight to Low</option>
                   <option value="discountLowToHigh">Discount Low to High</option>
                   <option value="sortByBrandAZ">Sort By Brand Name</option>
                 </select>
+
               </div>
             </form>
           </div>
@@ -97,17 +98,22 @@ var OfferList = React.createClass({
       return 0
     }.bind(this));
 
+    var searchResult = this.props.data.filter(function(this.props.searchTerm){
+      
+    }.bind(this))
+
     var offerNodes = sortedData.map(function(item){
       return(
-        <OfferItem key={item.id} id={item.id} brand={item.brand} discount={item.discount}></OfferItem>
+        <OfferItem key={item._id} id={item._id} brand={item.brand} discount={item.discount}></OfferItem>
       );
-  });
-  return (
-    <div className="offer-list">
-      {offerNodes}
-    </div>
-  );
-}
+    });
+
+    return (
+      <div className="offer-list">
+        {offerNodes}
+      </div>
+    );
+  }
 });
 
 // AN individual offer tiem
