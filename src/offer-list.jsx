@@ -1,6 +1,6 @@
 var React = require('react');
 var Link = require('react-router').Link;
-var $ = require('jquery');
+var ajax = require('jquery').ajax;
 
 var placeholderImage = require('../img/300.png');
 
@@ -10,12 +10,21 @@ var OfferListContainer = React.createClass({
   getInitialState: function(){
     return {
       data: [],
-      filterBy: 'discountHightToLow'
+      filterBy: 'discountHightToLow',
+      page: 1,
+      limit: 15
     }
   },
   componentDidMount: function() {
-    $.ajax({
-      url: this.props.route.url,
+    let pageSize;
+    if (this.state.page === 1)
+      pageSize = 0
+    else
+      pageSize = (this.state.page - 1) * this.state.limit
+    console.log(pageSize);
+
+    ajax({
+      url: this.props.route.url + "skip=" +pageSize+ "limit=" +this.state.limit,
       dataType: 'json',
       cache: false,
       success: function(data) {
@@ -98,9 +107,9 @@ var OfferList = React.createClass({
       return 0
     }.bind(this));
 
-    var searchResult = this.props.data.filter(function(this.props.searchTerm){
+    // var searchResult = this.props.data.filter(function(this.props.searchTerm){
       
-    }.bind(this))
+    // }.bind(this))
 
     var offerNodes = sortedData.map(function(item){
       return(
