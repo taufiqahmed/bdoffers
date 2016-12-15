@@ -24,4 +24,4 @@ Trying to learn ReactJS with a real life project called BDoffers, an offer listi
   - Brand Name Autocomplete
 
 Build Using `npm run build`
-Start A dev server and watch `npm run watch`
+Start A dev server and watch `npm run start`
