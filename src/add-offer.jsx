@@ -88,7 +88,7 @@ var AddOfferForm = React.createClass({
   // Posting Data to API
   _saveOffer: function (data) {
     $.ajax({
-      url: "http://localhost:3004/offers",
+      url: "http://localhost:3004/offers/",
       contentType: 'application/json',
       dataType: 'json',
       cache: false,
@@ -149,6 +149,7 @@ var AddOfferForm = React.createClass({
   _handleValidation: function () {
     // return HtmlCollection
     var offerFormInput = document.offerForm.getElementsByTagName('input');
+    
     // Converting Collection to Array
     var offerFormInputArray = [].slice.call(offerFormInput);
     
@@ -162,16 +163,16 @@ var AddOfferForm = React.createClass({
     });
 
     if (formValid){
-      // var formData = {
-      // "title" : this.state.title,
-      // "brand" : this.state.brand,
-      // "discount" : this.state.discount,
-      // "startDate" : this.state.startDate,
-      // "endDate" : this.state.endDate,
-      // }
+      var formData = {
+        "title" : this.state.title,
+        "brand" : this.state.brand,
+        "discount" : this.state.discount,
+        "startDate" : this.state.startDate,
+        "endDate" : this.state.endDate,
+      }
 
-      this.setState({submitSuccess: true});
-      // this._saveOffer(formData);
+      // Calling Save offer Function to save data to Server
+      this._saveOffer(formData);
     }
   },
   
