@@ -12,16 +12,17 @@ var OfferListContainer = React.createClass({
       data: [],
       filterBy: 'discountHightToLow',
       page: 1,
-      limit: 15
+      limit: 4
     }
   },
+  
   componentDidMount: function() {
     let pageSize;
     if (this.state.page === 1)
       pageSize = 0
     else
       pageSize = (this.state.page - 1) * this.state.limit
-    console.log(pageSize);
+    console.log("Page Size:"+pageSize);
 
     ajax({
       url: this.props.route.url + "skip=" +pageSize+ "limit=" +this.state.limit,
@@ -35,19 +36,35 @@ var OfferListContainer = React.createClass({
       }
     });
   },
+  
   _onFilterChange: function (params) {
     var filterValue = document.getElementById("filter").value;
     this.setState({filterBy: filterValue})
     console.log(this.state);
   },
+  
+  // Pagination Button function
+  prevPageButtonClicked: function (e){
+    e.preventDefault();
+    this.setState({page: --this.state.page}, this.componentDidMount);
+  },
+  nextPageButtonClicked: function (e){
+    e.preventDefault();
+    this.setState({page: ++this.state.page}, this.componentDidMount);
+  },
+  numberedPageButtonClicked: function (pageNumber){
+    this.setState({page: pageNumber}, this.componentDidMount);
+    
+  },
+
   render: function(){
     return (
       <div className="offer-box">
         <div className="row">
-          <div className="col-md-7">
-            <h2 style={{margin: '0', marginBottom: '20px'}}>Latest Offers</h2>
+          <div className="col-xs-6">
+            <h2 style={{margin: '0', marginBottom: '20px'}}>Latest Offers {this.state.page}</h2>
           </div>
-          <div className="col-md-5">
+          <div className="col-xs-6">
             <div className="pull-right"><Link to="/add-offer" className="btn btn-primary">Add New Offer</Link></div>
             <form className="form-inline pull-right" style={{marginRight: '10px'}}>
               <div className="form-group">
@@ -57,13 +74,25 @@ var OfferListContainer = React.createClass({
                   <option value="discountLowToHigh">Discount Low to High</option>
                   <option value="sortByBrandAZ">Sort By Brand Name</option>
                 </select>
-
               </div>
             </form>
           </div>
         </div>
+        
+        
+        <OfferList data={this.state.data} filterBy={this.state.filterBy}/>
+        
+        
         <div className="row">
-          <OfferList data={this.state.data} filterBy={this.state.filterBy}/>
+          <div className="col-md-12">
+            <Pagination 
+            dataLength={this.state.data.length} 
+            pageLimit={this.state.limit}
+            nextPageButtonClicked={this.nextPageButtonClicked}
+            prevPageButtonClicked={this.prevPageButtonClicked}
+            numberedPageButtonClicked={this.numberedPageButtonClicked}
+            />
+          </div>
         </div>
       </div>
     );
@@ -118,7 +147,7 @@ var OfferList = React.createClass({
     });
 
     return (
-      <div className="offer-list">
+      <div className="offer-list row">
         {offerNodes}
       </div>
     );
@@ -129,7 +158,7 @@ var OfferList = React.createClass({
 var OfferItem = React.createClass({
   render: function(){
     return (
-      <div className="offer col-md-3">
+      <div className="offer col-xs-4 col-md-3">
         <div className="thumbnail">
           <img src={placeholderImage} alt="Offer"/>
           <div className="caption">
@@ -139,6 +168,42 @@ var OfferItem = React.createClass({
           </div>
         </div>
       </div>
+    );
+  }
+});
+
+// Pagination
+var Pagination = React.createClass({
+  
+  render: function(){
+    
+    var pageCount = this.props.dataLength/this.props.pageLimit;
+    if (this.props.dataLength%this.props.pageLimit === 0){
+      ++pageCount;
+    }
+    var page = [];
+    for (var i=1; i<=pageCount; i++){
+      page.push (
+        <li key={i} ><a onClick={this.props.numberedPageButtonClicked.bind(null, i)} href="#">{i}</a></li>
+      )
+    }
+    
+    return (
+      <nav aria-label="Pagination">
+        <ul className="pagination">
+          <li>
+            <a href="#" onClick={this.props.prevPageButtonClicked} aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          {page}
+          <li>
+            <a href="#" onClick={this.props.nextPageButtonClicked} aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
     );
   }
 });
