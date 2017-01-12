@@ -86,6 +86,7 @@ var OfferListContainer = React.createClass({
         <div className="row">
           <div className="col-md-12">
             <Pagination 
+            currentPage = {this.state.page}
             dataLength={this.state.data.length} 
             pageLimit={this.state.limit}
             nextPageButtonClicked={this.nextPageButtonClicked}
@@ -183,25 +184,36 @@ var Pagination = React.createClass({
     }
     var page = [];
     for (var i=1; i<=pageCount; i++){
-      page.push (
-        <li key={i} ><a onClick={this.props.numberedPageButtonClicked.bind(null, i)} href="#">{i}</a></li>
-      )
+      if (this.props.currentPage == i){
+        page.push (
+          <li key={i} className="active"><a onClick={this.props.numberedPageButtonClicked.bind(null, i)} href="#">{i}</a></li>
+        )
+      } else {
+        page.push (
+          <li key={i}><a onClick={this.props.numberedPageButtonClicked.bind(null, i)} href="#">{i}</a></li>
+        )
+      }
+    }
+
+    let nextButton, prevButton;
+    if (this.props.currentPage>1){
+      prevButton = <li><a href="#" onClick={this.props.prevPageButtonClicked} aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>;
+    } else {
+      prevButton = <li className="disabled"><a href="#" aria-label="Previous" ><span aria-hidden="true">&laquo;</span></a></li>;
+    }
+
+    if (this.props.currentPage<=pageCount){
+      nextButton = <li><a href="#" onClick={this.props.nextPageButtonClicked} aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+    } else {
+      nextButton = <li className="disabled"><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
     }
     
     return (
       <nav aria-label="Pagination">
         <ul className="pagination">
-          <li>
-            <a href="#" onClick={this.props.prevPageButtonClicked} aria-label="Previous">
-              <span aria-hidden="true">&laquo;</span>
-            </a>
-          </li>
+          {prevButton}
           {page}
-          <li>
-            <a href="#" onClick={this.props.nextPageButtonClicked} aria-label="Next">
-              <span aria-hidden="true">&raquo;</span>
-            </a>
-          </li>
+          {nextButton}
         </ul>
       </nav>
     );
