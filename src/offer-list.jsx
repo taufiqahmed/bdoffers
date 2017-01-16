@@ -9,7 +9,8 @@ var placeholderImage = require('../img/300.png');
 var OfferListContainer = React.createClass({
   getInitialState: function(){
     return {
-      data: [],
+      offerList: [],
+      docLength: null,
       filterBy: 'discountHightToLow',
       page: 1,
       limit: 4
@@ -22,14 +23,14 @@ var OfferListContainer = React.createClass({
       pageSize = 0
     else
       pageSize = (this.state.page - 1) * this.state.limit
-    console.log("Page Size:"+pageSize);
 
     ajax({
       url: this.props.route.url + "skip=" +pageSize+ "limit=" +this.state.limit,
       dataType: 'json',
       cache: false,
       success: function(data) {
-        this.setState({data: data});
+        this.setState({offerList: data.offers});
+        this.setState({docLength: data.length});
       }.bind(this),
       error: function(xhr, status, err) {
         console.error(status, err.toString());
@@ -37,10 +38,13 @@ var OfferListContainer = React.createClass({
     });
   },
   
+  _onShowItemChange: function (params) {
+    var itemToShow = document.getElementById("showItem").value;
+    this.setState({limit: itemToShow}, this.componentDidMount);
+  },
   _onFilterChange: function (params) {
     var filterValue = document.getElementById("filter").value;
     this.setState({filterBy: filterValue})
-    console.log(this.state);
   },
   
   // Pagination Button function
@@ -61,18 +65,28 @@ var OfferListContainer = React.createClass({
     return (
       <div className="offer-box">
         <div className="row">
-          <div className="col-xs-6">
-            <h2 style={{margin: '0', marginBottom: '20px'}}>Latest Offers {this.state.page}</h2>
+          <div className="col-xs-4">
+            <h2 style={{margin: '0', marginBottom: '20px'}}>Latest Offers</h2>
           </div>
-          <div className="col-xs-6">
+          <div className="col-xs-8">
             <div className="pull-right"><Link to="/add-offer" className="btn btn-primary">Add New Offer</Link></div>
             <form className="form-inline pull-right" style={{marginRight: '10px'}}>
               <div className="form-group">
                 <label>Filter By &nbsp;</label>
-                <select className="form-control" id="filter" onChange={this._onFilterChange}>
+                <select className="form-control input-sm" id="filter" onChange={this._onFilterChange}>
                   <option value="discountHightToLow">Discount Hight to Low</option>
                   <option value="discountLowToHigh">Discount Low to High</option>
                   <option value="sortByBrandAZ">Sort By Brand Name</option>
+                </select>
+              </div>
+            </form>
+            <form className="form-inline pull-right" style={{marginRight: '10px'}}>
+              <div className="form-group">
+                <label>Show &nbsp;</label>
+                <select className="form-control input-sm" id="showItem" onChange={this._onShowItemChange}>
+                  <option value="4">4 Items</option>
+                  <option value="8">8 Items</option>
+                  <option value="12">12 Items</option>
                 </select>
               </div>
             </form>
@@ -80,14 +94,14 @@ var OfferListContainer = React.createClass({
         </div>
         
         
-        <OfferList data={this.state.data} filterBy={this.state.filterBy}/>
+        <OfferList data={this.state.offerList} filterBy={this.state.filterBy}/>
         
         
         <div className="row">
           <div className="col-md-12">
             <Pagination 
-            currentPage = {this.state.page}
-            dataLength={this.state.data.length} 
+            currentPage={this.state.page}
+            dataLength={this.state.docLength} 
             pageLimit={this.state.limit}
             nextPageButtonClicked={this.nextPageButtonClicked}
             prevPageButtonClicked={this.prevPageButtonClicked}
@@ -178,13 +192,10 @@ var Pagination = React.createClass({
   
   render: function(){
     
-    var pageCount = this.props.dataLength/this.props.pageLimit;
-    if (this.props.dataLength%this.props.pageLimit === 0){
-      ++pageCount;
-    }
+    var pageCount = Math.ceil(this.props.dataLength/this.props.pageLimit);
     var page = [];
     for (var i=1; i<=pageCount; i++){
-      if (this.props.currentPage == i){
+      if (this.props.currentPage === i){
         page.push (
           <li key={i} className="active"><a onClick={this.props.numberedPageButtonClicked.bind(null, i)} href="#">{i}</a></li>
         )
@@ -199,13 +210,13 @@ var Pagination = React.createClass({
     if (this.props.currentPage>1){
       prevButton = <li><a href="#" onClick={this.props.prevPageButtonClicked} aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>;
     } else {
-      prevButton = <li className="disabled"><a href="#" aria-label="Previous" ><span aria-hidden="true">&laquo;</span></a></li>;
+      prevButton = <li className="disabled"><a aria-label="Previous" ><span aria-hidden="true">&laquo;</span></a></li>;
     }
 
-    if (this.props.currentPage<=pageCount){
+    if (this.props.currentPage<pageCount){
       nextButton = <li><a href="#" onClick={this.props.nextPageButtonClicked} aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
     } else {
-      nextButton = <li className="disabled"><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+      nextButton = <li className="disabled"><a aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
     }
     
     return (
