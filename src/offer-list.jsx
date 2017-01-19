@@ -66,7 +66,7 @@ var OfferListContainer = React.createClass({
       <div className="offer-box">
         <div className="row">
           <div className="col-xs-4">
-            <h2 style={{margin: '0', marginBottom: '20px'}}>Latest Offers</h2>
+            <h3 style={{margin: '0', marginBottom: '20px'}}>Latest Offers</h3>
           </div>
           <div className="col-xs-8">
             <div className="pull-right"><Link to="/add-offer" className="btn btn-primary">Add New Offer</Link></div>
@@ -178,7 +178,7 @@ var OfferItem = React.createClass({
           <img src={placeholderImage} alt="Offer"/>
           <div className="caption">
             <h2>{this.props.discount}%</h2>
-            <h4 className="text-danger">{this.props.brand}</h4>
+            <h4 className="text-primary">{this.props.brand}</h4>
             <p><Link to={"offer-detail/" + this.props.id} className="btn btn-success" role="button">View Offer</Link> </p>
           </div>
         </div>

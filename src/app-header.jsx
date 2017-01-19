@@ -5,8 +5,8 @@ var AppHeader = React.createClass ({
   render: function () {
     return (
       <header>
-        <nav className="navbar navbar-default">
-          <div className="container-fluid">
+        <nav className="navbar navbar-inverse">
+          <div className="container">
             <div className="navbar-header">
               <Link to="/" className="navbar-brand">
                 BDoffers
