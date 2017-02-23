@@ -134,10 +134,10 @@ var OfferList = React.createClass({
           return -1;
         }
       } else if (this.props.filterBy === 'sortByBrandAZ'){
-        if (a.brand > b.brand) {
+        if (a.brandName > b.brandName) {
           return 1;
         }
-        if (a.brand < b.brand) {
+        if (a.brandName < b.brandName) {
           return -1;
         }
       } else {
@@ -157,7 +157,7 @@ var OfferList = React.createClass({
 
     var offerNodes = sortedData.map(function(item){
       return(
-        <OfferItem key={item._id} id={item._id} brand={item.brand} discount={item.discount}></OfferItem>
+        <OfferItem key={item._id} id={item._id} brandName={item.brandName} brandId={item.brandId} discount={item.discount}></OfferItem>
       );
     });
 
@@ -178,8 +178,8 @@ var OfferItem = React.createClass({
           <img src={placeholderImage} alt="Offer"/>
           <div className="caption">
             <h2>{this.props.discount}%</h2>
-            <h4 className="text-primary">{this.props.brand}</h4>
-            <p><Link to={"offer-detail/" + this.props.id} className="btn btn-success" role="button">View Offer</Link> </p>
+            <h4 className="text-primary"><Link to={"brand/" + this.props.brandId} className="btn btn-link" role="button">{this.props.brandName}</Link></h4>
+            <p><Link to={"offer-detail/" + this.props.id} className="btn btn-success" role="button">View Offer</Link></p>
           </div>
         </div>
       </div>
