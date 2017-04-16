@@ -18,7 +18,6 @@ var BrandPage = React.createClass({
       cache: false,
       success: function(data) {
         this.setState({ offerList: data });
-        // this.setState({ brandInfo: data.brandInfo });
       }.bind(this),
       error: function(xhr, status, err) {
         console.error(status, err.toString());
@@ -28,11 +27,36 @@ var BrandPage = React.createClass({
   render: function () {
     return (
       <div id="brand-page-component">
+        <BrandInfo brandId={this.props.params.brandId} data={this.state.brandInfo}></BrandInfo>
         <OfferList data={this.state.offerList}></OfferList>
       </div>
     )
   }
 });
+
+// Brand  Information
+var BrandInfo = React.createClass({
+  render: function (){
+    return (
+      <div className="row">
+        <div className="col-md-4">
+          <div className="logo">
+            <img src={placeholderImage} alt="Logo"/>
+          </div>
+        </div>
+        <div className="col-md-8">
+          <h1>{this.props.data.name}</h1>
+          <p>Contact: {this.props.data.phoneNumberList}</p>
+          <p>
+  <a href={this.props.data.facebookUrl}>Facebook</a> &nbsp;
+            <a href={this.props.data.instagramUrl}>Instagram</a> 
+          </p>
+          <p><a onClick={this.showBranchModal}>Branch List</a></p>
+        </div>
+      </div>
+    )
+  }
+})
 
 // List of Offers
 var OfferList = React.createClass({
@@ -44,6 +68,9 @@ var OfferList = React.createClass({
     });
     return (
       <div className="offer-list row">
+        <div className="col-md-12">
+          <h3>Latest Offers</h3>
+        </div>
         {offerNodes}
       </div>
     );

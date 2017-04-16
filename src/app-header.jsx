@@ -6,6 +6,7 @@ var AppHeader = React.createClass ({
   searchButtonPressed: function () {
     var query = document.getElementById("searchQuery").value;
     hashHistory.push('search-results/' + query);
+    // this.context.router.push('search-results/' + query).bind(this);
   },
   render: function () {
     return (

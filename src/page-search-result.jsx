@@ -12,7 +12,8 @@ var SearchResults = React.createClass({
       url: this.props.route.url + "search=" +this.props.params.query,
       dataType: 'json',
       cache: false,
-      success: function(data) {
+      success: function (data) {
+        console.log("found data:", data);
         this.setState({data: data});
       }.bind(this),
       error: function(xhr, status, err) {

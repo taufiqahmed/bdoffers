@@ -2,7 +2,7 @@ var React = require('react');
 var Link = require('react-router').Link;
 var ajax = require('jquery').ajax;
 
-var placeholderImage = require('../img/300.png');
+// var placeholderImage = require('../img/300.png');
 
 
 // A container for all offers
@@ -151,13 +151,10 @@ var OfferList = React.createClass({
       return 0
     }.bind(this));
 
-    // var searchResult = this.props.data.filter(function(this.props.searchTerm){
-      
-    // }.bind(this))
-
+    
     var offerNodes = sortedData.map(function(item){
       return(
-        <OfferItem key={item._id} id={item._id} brandName={item.brandName} brandId={item.brandId} discount={item.discount}></OfferItem>
+        <OfferItem key={item._id} id={item._id} brandName={item.brandName} brandId={item.brandId} discount={item.discount} image={item.image}></OfferItem>
       );
     });
 
@@ -175,7 +172,7 @@ var OfferItem = React.createClass({
     return (
       <div className="offer col-xs-4 col-md-3">
         <div className="thumbnail">
-          <img src={placeholderImage} alt="Offer"/>
+          <img src={this.props.image[0]} alt="Offer"/>
           <div className="caption">
             <h2>{this.props.discount}%</h2>
             <h4 className="text-primary"><Link to={"brand/" + this.props.brandId} className="btn btn-link" role="button">{this.props.brandName}</Link></h4>
