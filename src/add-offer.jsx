@@ -21,65 +21,66 @@ var AddOfferForm = React.createClass({
     var brandInput = document.getElementById('brand');
     var awesomplete = new Awesomplete(brandInput);
     awesomplete.list = [
-      "Ecstasy"
-    , "Yellow"
-    , "Le Reve"
-    , "Artisti"
-    , "Artisan"
-    , "Infinity"
-    , "Amber"
-    , "Topicshots"
-    , "Wordpedia"
-    , "Photolist"
-    , "Rhyzio"
-    ,  "Aivee"
-    , "Tagcat"
-    , "Tagchat"
-    , "Trudoo"
-    , "Skipstorm"
-    , "Edgewire"
-    , "Topicshots"
-    , "Voomm"
-    , "Vinte"
-    , "Eamia"
-    , "Youtags"
-    , "Zoomcast"
-    , "Zoozzy"
-    , "Skilith"
-    , "Tekfly"
-    , "Zoomcast"
-    , "Oyoloo"
-    , "Meembee"
-    , "Realbridge"
-    , "Quire"
-    , "Wikivu"
-    , "Thoughtworks"
-    , "Gabtune"
-    ,  "Yakijo"
-    , "Kwilith"
-    , "Kimia"
-    , "Zava"
-    , "Eamia"
-    , "Quinu"
-    ,  "Quire"
-    , "Bluejam"
-    , "Rhyzio"
-    , "Feedmix"
-    , "Midel"
-    , "Buzzdog"
-    , "Tagpad"
-    , "Ntags"
-    , "Voolith"
-    , "Abata"
-    ,  "Gevee"
-    , "Bubblemix"
-    , "Dabjam"
-    , "Babbleset"
-    , "Snaptags"
-    , "Jamia"
-    , "Bluejam"
+      "Ecstasy",
+      "Yellow",
+      "Le Reve",
+      "Artisti",
+      "Artisan",
+      "Infinity",
+      "Amber",
+      "Topicshots",
+      "Wordpedia",
+      "Photolist",
+      "Rhyzio",
+       "Aivee",
+      "Tagcat",
+      "Tagchat",
+      "Trudoo",
+      "Skipstorm",
+      "Edgewire",
+      "Topicshots",
+      "Voomm",
+      "Vinte",
+      "Eamia",
+      "Youtags",
+      "Zoomcast",
+      "Zoozzy",
+      "Skilith",
+      "Tekfly",
+      "Zoomcast",
+      "Oyoloo",
+      "Meembee",
+      "Realbridge",
+      "Quire",
+      "Wikivu",
+      "Thoughtworks",
+      "Gabtune",
+       "Yakijo",
+      "Kwilith",
+      "Kimia",
+      "Zava",
+      "Eamia",
+      "Quinu",
+       "Quire",
+      "Bluejam",
+      "Rhyzio",
+      "Feedmix",
+      "Midel",
+      "Buzzdog",
+      "Tagpad",
+      "Ntags",
+      "Voolith",
+      "Abata",
+       "Gevee",
+      "Bubblemix",
+      "Dabjam",
+      "Babbleset",
+      "Snaptags",
+      "Jamia",
+      "Bluejam"
     ];
   },
+
   _today: function () {
     var today = new Date();
     return today.toISOString().substr(0, 10);
@@ -173,12 +174,12 @@ var AddOfferForm = React.createClass({
 
       // Calling Save offer Function to save data to Server
       this._saveOffer(formData);
+      this._resetForm()
     }
   },
   
   // Handling Submit Event
   _handleSubmit: function (e) {
-    e.preventDefault();
     this._handleValidation();
   },
 
@@ -187,7 +188,11 @@ var AddOfferForm = React.createClass({
   },
   
   _resetForm: function () {
-    $('#offer-form')[0].reset();
+    this.setState({title: ""})
+    this.setState({brand: ""})
+    this.setState({discount: ""})
+    this.setState({startDate: ""})
+    this.setState({endDate: ""})
   },
   
   render() {
@@ -215,7 +220,7 @@ var AddOfferForm = React.createClass({
           </div>
         </div>
         <div className="row">
-          <form className="col-md-6 col-md-offset-3" id="offer-form" name="offerForm" onSubmit={this._handleSubmit}>
+          <form className="col-md-6 col-md-offset-3" id="offer-form" name="offerForm">
             <div className="page-header"><h2>Add New Offer</h2></div>
             <div className="form-group">
               <label htmlFor="">Offer Title</label>
@@ -243,9 +248,11 @@ var AddOfferForm = React.createClass({
               <span className="help-block"></span>
             </div>
             <div className="form-group">
-              <button className="btn btn-success btn-lg" type="submit">Submit</button>
+              <button className="btn btn-success btn-lg" onClick={this._handleSubmit}>Submit</button>
               &nbsp;
               <Link className="btn btn-default btn-lg" to="/">Cancel</Link>
+              &nbsp;
+              <button className="btn btn-default btn-lg" onClick={this._resetForm}>Reset</button>
             </div>
           </form>
         </div>

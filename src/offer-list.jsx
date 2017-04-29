@@ -172,7 +172,7 @@ var OfferItem = React.createClass({
     return (
       <div className="offer col-xs-4 col-md-3">
         <div className="thumbnail">
-          <img src={this.props.image[0]} alt="Offer"/>
+          <img src={this.props.image} alt="Offer"/>
           <div className="caption">
             <h2>{this.props.discount}%</h2>
             <h4 className="text-primary"><Link to={"brand/" + this.props.brandId} className="btn btn-link" role="button">{this.props.brandName}</Link></h4>
